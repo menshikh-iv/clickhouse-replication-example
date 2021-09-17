@@ -15,6 +15,46 @@
         <session_timeout_ms>30000</session_timeout_ms>
         <operation_timeout_ms>10000</operation_timeout_ms>
     </zookeeper>
+    <remote_servers>
+        <ontime_cluster>
+            <shard>
+                <replica>
+                    <default_database>r0</default_database>
+                    <host>ch1</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>r1</default_database>
+                    <host>ch3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <default_database>r0</default_database>
+                    <host>ch2</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>r1</default_database>
+                    <host>ch1</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <default_database>r0</default_database>
+                    <host>ch3</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <default_database>r1</default_database>
+                    <host>ch2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </ontime_cluster>
+    </remote_servers>
 
     <distributed_ddl>
     <!-- Path in ZooKeeper to queue with DDL queries -->
