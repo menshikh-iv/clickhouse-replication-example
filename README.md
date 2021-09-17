@@ -1,5 +1,10 @@
 # Play with cluster
 
+### Up cluster
+
+```bash
+docker-compose up
+```
 
 ### Check that clickhouse are up
 
@@ -12,14 +17,14 @@ select 1;
 ### Create dabase on cluster
 
 ```sql
-CREATE DATABASE testdb ON CLUSTER '{cluster}';
+CREATE DATABASE IF NOT EXISTS testdb ON CLUSTER '{cluster}';
 ```
 
 
 ### Create distributed table on cluster
 
 ```sql
-CREATE TABLE testdb.test ON CLUSTER '{cluster}'
+CREATE TABLE IF NOT EXISTS testdb.test ON CLUSTER '{cluster}'
 (
     timestamp DateTime,
     contractid UInt32,
