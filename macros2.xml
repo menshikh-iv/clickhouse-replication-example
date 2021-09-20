@@ -1,12 +1,7 @@
 <yandex>
     <macros>
         <shard>01</shard>
-        <replica>00</replica>
-        <cluster>ontime_cluster</cluster>
-    </macros>
-    <macros>
-        <shard>02</shard>
-        <replica>01</replica>
+        <replica>02</replica>
         <cluster>ontime_cluster</cluster>
     </macros>
 </yandex>
