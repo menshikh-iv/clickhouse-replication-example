@@ -1,31 +1,70 @@
 version: "3.2"
 services:
-  ch-server-1:
+  ch1:
     image: yandex/clickhouse-server
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
+      - ./zookeeper.xml:/etc/clickhouse-server/config.d/zookeeper.xml
       - ./macros1.xml:/etc/clickhouse-server/config.d/macros.xml
       - ./data/1:/var/lib/clickhouse
     ports:
       - 8123:8123
-  ch-server-2:
+
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+  ch2:
     image: yandex/clickhouse-server
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
+      - ./zookeeper.xml:/etc/clickhouse-server/config.d/zookeeper.xml
       - ./macros2.xml:/etc/clickhouse-server/config.d/macros.xml
       - ./data/2:/var/lib/clickhouse
-  ch-server-3:
+    depends_on:
+    - zookeeper1
+    - zookeeper2
+    - zookeeper3
+
+  ch3:
     image: yandex/clickhouse-server
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.d/local.xml
       - ./macros3.xml:/etc/clickhouse-server/config.d/macros.xml
+      - ./zookeeper.xml:/etc/clickhouse-server/config.d/zookeeper.xml
       - ./data/3:/var/lib/clickhouse
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+
   ch-client:
     image: yandex/clickhouse-client
     entrypoint:
       - /bin/sleep
     command:
       - infinity
-  zookeeper:
-    image: zookeeper
 
+  zookeeper1:
+    image: zookeeper
+    environment:
+      ZOO_MY_ID: '1'
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports:
+      - 2181:2181
+
+  zookeeper2:
+    image: zookeeper
+    environment:
+      ZOO_MY_ID: '2'
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports:
+      - 2182:2181
+
+  zookeeper3:
+    image: zookeeper
+    environment:
+      ZOO_MY_ID: '3'
+    volumes:
+      - ./zoo.cfg:/conf/zoo.cfg
+    ports:
+      - 2183:2181
